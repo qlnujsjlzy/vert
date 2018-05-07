@@ -7,11 +7,14 @@
     <parent>
         <groupId>com.zhaoyang</groupId>
         <artifactId>vert</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     
     <artifactId>vert-core</artifactId>
+    <name>vert-core</name>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
