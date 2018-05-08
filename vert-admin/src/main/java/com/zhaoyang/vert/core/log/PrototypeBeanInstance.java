@@ -6,6 +6,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 多例的组件自动组装服务类
  *
@@ -17,6 +19,6 @@ import org.springframework.stereotype.Service;
 @Getter
 public class PrototypeBeanInstance {
 
-    @Autowired
+    @Resource
     private LogSessionHolder logSessionHolder;
 }

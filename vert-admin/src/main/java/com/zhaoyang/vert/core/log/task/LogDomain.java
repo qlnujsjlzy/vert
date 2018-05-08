@@ -1,7 +1,7 @@
 package com.zhaoyang.vert.core.log.task;
 
-import com.zhaoyang.vert.core.common.constant.state.LogSucceed;
-import com.zhaoyang.vert.core.common.constant.state.LogType;
+import com.zhaoyang.vert.core.common.constant.enums.LogSucceed;
+import com.zhaoyang.vert.core.common.constant.enums.LogType;
 import com.zhaoyang.vert.module.system.model.LoginLog;
 import com.zhaoyang.vert.module.system.model.OperationLog;
 

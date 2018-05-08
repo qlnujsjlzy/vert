@@ -1,4 +1,4 @@
-package com.zhaoyang.vert.core.common.constant.state;
+package com.zhaoyang.vert.core.common.constant.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
