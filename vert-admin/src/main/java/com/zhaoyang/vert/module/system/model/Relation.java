@@ -9,19 +9,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 角色表
+ * 角色和菜单关联表
  *
  * @author : zhaoyang.li
- * @date : 2018/5/8
+ * @date : 2018/5/9
  */
-@TableName("sys_role")
+@TableName("sys_relation")
 @Setter
 @Getter
 @ToString
-public class Role extends Model<Role> {
+public class Relation extends Model<Relation> {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,25 +30,13 @@ public class Role extends Model<Role> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 标题
+     * 菜单id {@link com.zhaoyang.vert.module.system.model.Role}
      */
-    private String title;
+    private Long menuId;
     /**
-     * 类型
+     * 角色id {@link com.zhaoyang.vert.module.system.model.Role}
      */
-    private Integer type;
-    /**
-     * 内容
-     */
-    private String content;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 创建人
-     */
-    private Integer creator;
+    private Integer roleId;
 
 
     @Override

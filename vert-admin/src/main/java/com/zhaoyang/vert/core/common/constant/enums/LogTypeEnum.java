@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum LogType {
+public enum LogTypeEnum {
 
 
     LOGIN("登录日志"),

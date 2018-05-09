@@ -9,51 +9,47 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 角色表
+ * 字典表
  *
  * @author : zhaoyang.li
- * @date : 2018/5/8
+ * @date : 2018/5/9
  */
-@TableName("sys_role")
+@TableName("sys_dict")
 @Setter
 @Getter
 @ToString
-public class Role extends Model<Role> {
+public class Dict extends Model<Dict> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 标题
+     * 排序
      */
-    private String title;
+    private Integer num;
     /**
-     * 类型
+     * 父级字典
      */
-    private Integer type;
+    private Integer parentId;
     /**
-     * 内容
+     * 名称
      */
-    private String content;
+    private String name;
     /**
-     * 创建时间
+     * 提示
      */
-    private Date createTime;
-    /**
-     * 创建人
-     */
-    private Integer creator;
+    private String tips;
 
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
+
 }

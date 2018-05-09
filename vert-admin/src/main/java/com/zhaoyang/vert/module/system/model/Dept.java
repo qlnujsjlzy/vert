@@ -9,51 +9,59 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 角色表
+ * 部门表
  *
  * @author : zhaoyang.li
- * @date : 2018/5/8
+ * @date : 2018/5/9
  */
-@TableName("sys_role")
+@TableName("sys_dept")
 @Setter
 @Getter
 @ToString
-public class Role extends Model<Role> {
+public class Dept extends Model<Dept> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键id
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**
-     * 标题
+     * 排序
      */
-    private String title;
+    private Integer num;
     /**
-     * 类型
+     * 父部门id
      */
-    private Integer type;
+    private Integer parentId;
     /**
-     * 内容
+     * 父级ids
      */
-    private String content;
+    private String parentIds;
     /**
-     * 创建时间
+     * 简称
      */
-    private Date createTime;
+    private String simpleName;
     /**
-     * 创建人
+     * 全称
      */
-    private Integer creator;
+    private String fullName;
+    /**
+     * 提示
+     */
+    private String tips;
+    /**
+     * 版本（乐观锁保留字段）
+     */
+    private Integer version;
 
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
+
 }

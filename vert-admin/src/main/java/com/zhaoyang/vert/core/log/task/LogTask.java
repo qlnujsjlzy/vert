@@ -1,15 +1,15 @@
 package com.zhaoyang.vert.core.log.task;
 
-import com.zhaoyang.vert.core.common.constant.enums.LogSucceed;
-import com.zhaoyang.vert.core.common.constant.enums.LogType;
+import com.zhaoyang.vert.core.common.constant.enums.LogSucceedEnum;
+import com.zhaoyang.vert.core.common.constant.enums.LogTypeEnum;
 import com.zhaoyang.vert.module.system.dao.LoginLogMapper;
 import com.zhaoyang.vert.module.system.dao.OperationLogMapper;
 import com.zhaoyang.vert.module.system.model.OperationLog;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.TimerTask;
 
 /**
@@ -25,9 +25,9 @@ public class LogTask {
 
     private static LogTask logTask;
 
-    @Autowired
+    @Resource
     private LoginLogMapper loginLogMapper;
-    @Autowired
+    @Resource
     private OperationLogMapper operationLogMapper;
 
     @PostConstruct
@@ -42,7 +42,7 @@ public class LogTask {
             @Override
             public void run() {
                 OperationLog operationLog = LogDomain.createOperationLog(
-                        LogType.BUSINESS, userId, businessName, clazzName, methodName, msg, LogSucceed.SUCCESS);
+                        LogTypeEnum.BUSINESS, userId, businessName, clazzName, methodName, msg, LogSucceedEnum.SUCCESS);
                 try {
                     logTask.operationLogMapper.insert(operationLog);
                 } catch (Exception e) {

@@ -12,16 +12,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 角色表
+ * 通知表
  *
  * @author : zhaoyang.li
- * @date : 2018/5/8
+ * @date : 2018/5/9
  */
-@TableName("sys_role")
+@TableName("sys_notice")
 @Setter
 @Getter
 @ToString
-public class Role extends Model<Role> {
+public class Notice extends Model<Notice> {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,4 +56,5 @@ public class Role extends Model<Role> {
     protected Serializable pkVal() {
         return this.id;
     }
+
 }

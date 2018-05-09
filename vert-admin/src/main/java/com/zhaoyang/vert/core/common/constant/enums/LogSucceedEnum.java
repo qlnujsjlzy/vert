@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum LogSucceed {
+public enum LogSucceedEnum {
 
     SUCCESS("成功"),
 

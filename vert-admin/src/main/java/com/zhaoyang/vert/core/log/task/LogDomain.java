@@ -1,7 +1,7 @@
 package com.zhaoyang.vert.core.log.task;
 
-import com.zhaoyang.vert.core.common.constant.enums.LogSucceed;
-import com.zhaoyang.vert.core.common.constant.enums.LogType;
+import com.zhaoyang.vert.core.common.constant.enums.LogSucceedEnum;
+import com.zhaoyang.vert.core.common.constant.enums.LogTypeEnum;
 import com.zhaoyang.vert.module.system.model.LoginLog;
 import com.zhaoyang.vert.module.system.model.OperationLog;
 
@@ -20,7 +20,7 @@ public class LogDomain {
      *创建操作日志
      */
 
-    public static OperationLog createOperationLog(LogType logType, Integer userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
+    public static OperationLog createOperationLog(LogTypeEnum logType, Integer userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceedEnum succeed) {
         OperationLog operationLog = new OperationLog();
         operationLog.setLogType(logType.getMessage());
         operationLog.setLogName(bussinessName);
@@ -36,12 +36,12 @@ public class LogDomain {
     /**
      * 创建登录日志
      */
-    public static LoginLog createLoginLog(LogType logType, Integer userId, String msg, String ip) {
+    public static LoginLog createLoginLog(LogTypeEnum logType, Integer userId, String msg, String ip) {
         LoginLog loginLog = new LoginLog();
         loginLog.setLogName(logType.getMessage());
         loginLog.setUserId(userId);
         loginLog.setCreateTime(new Date());
-        loginLog.setSucceed(LogSucceed.SUCCESS.getMessage());
+        loginLog.setSucceed(LogSucceedEnum.SUCCESS.getMessage());
         loginLog.setIp(ip);
         loginLog.setMessage(msg);
         return loginLog;
