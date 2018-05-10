@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.BindingResult;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -39,11 +37,11 @@ public class Menu extends Model<Menu> {
     /**
      * 菜单父编号
      */
-    private String parentCode;
+    private String pCode;
     /**
      * 当前菜单的所有父菜单编号
      */
-    private String parentCodes;
+    private String pCodes;
     /**
      * 菜单名称
      */

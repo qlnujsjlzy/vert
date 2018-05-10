@@ -36,7 +36,7 @@ public class Dict extends Model<Dict> {
     /**
      * 父级字典
      */
-    private Integer parentId;
+    private Integer pId;
     /**
      * 名称
      */

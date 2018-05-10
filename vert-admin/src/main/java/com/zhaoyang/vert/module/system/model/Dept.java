@@ -36,11 +36,11 @@ public class Dept extends Model<Dept> {
     /**
      * 父部门id
      */
-    private Integer parentId;
+    private Integer pId;
     /**
      * 父级ids
      */
-    private String parentIds;
+    private String pIds;
     /**
      * 简称
      */

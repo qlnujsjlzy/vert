@@ -13,13 +13,13 @@ File Encoding         : 65001
 Date: 2017-12-10 11:34:35
 */
 
-DROP DATABASE IF EXISTS vert_flowable;
-CREATE DATABASE IF NOT EXISTS vert_flowable DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+DROP DATABASE IF EXISTS guns_flowable;
+CREATE DATABASE IF NOT EXISTS guns_flowable DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
-DROP DATABASE IF EXISTS vert;
-CREATE DATABASE IF NOT EXISTS vert DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+DROP DATABASE IF EXISTS guns;
+CREATE DATABASE IF NOT EXISTS guns DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 
-USE vert;
+USE guns;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -30,10 +30,10 @@ DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `num` int(11) DEFAULT NULL COMMENT '排序',
-  `parent_id` int(11) DEFAULT NULL COMMENT '父部门id',
-  `parent_ids` varchar(255) DEFAULT NULL COMMENT '父级ids',
-  `simple_name` varchar(45) DEFAULT NULL COMMENT '简称',
-  `full_name` varchar(255) DEFAULT NULL COMMENT '全称',
+  `pid` int(11) DEFAULT NULL COMMENT '父部门id',
+  `pids` varchar(255) DEFAULT NULL COMMENT '父级ids',
+  `simplename` varchar(45) DEFAULT NULL COMMENT '简称',
+  `fullname` varchar(255) DEFAULT NULL COMMENT '全称',
   `tips` varchar(255) DEFAULT NULL COMMENT '提示',
   `version` int(11) DEFAULT NULL COMMENT '版本（乐观锁保留字段）',
   PRIMARY KEY (`id`)
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `num` int(11) DEFAULT NULL COMMENT '排序',
-  `parent_id` int(11) DEFAULT NULL COMMENT '父级字典',
+  `pid` int(11) DEFAULT NULL COMMENT '父级字典',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   `tips` varchar(255) DEFAULT NULL COMMENT '提示',
   PRIMARY KEY (`id`)
@@ -82,10 +82,10 @@ CREATE TABLE `sys_expense` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `money` decimal(20,2) DEFAULT NULL COMMENT '报销金额',
   `desc` varchar(255) DEFAULT '' COMMENT '描述',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `createtime` datetime DEFAULT CURRENT_TIMESTAMP,
   `state` int(11) DEFAULT NULL COMMENT '状态: 1.待提交  2:待审核   3.审核通过 4:驳回',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `process_id` varchar(255) DEFAULT NULL COMMENT '流程定义id',
+  `userid` int(11) DEFAULT NULL COMMENT '用户id',
+  `processId` varchar(255) DEFAULT NULL COMMENT '流程定义id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='报销表';
 
@@ -99,9 +99,9 @@ CREATE TABLE `sys_expense` (
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
   `id` int(65) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `log_name` varchar(255) DEFAULT NULL COMMENT '日志名称',
-  `user_id` int(65) DEFAULT NULL COMMENT '管理员id',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `logname` varchar(255) DEFAULT NULL COMMENT '日志名称',
+  `userid` int(65) DEFAULT NULL COMMENT '管理员id',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `succeed` varchar(255) DEFAULT NULL COMMENT '是否执行成功',
   `message` text COMMENT '具体消息',
   `ip` varchar(255) DEFAULT NULL COMMENT '登录ip',
@@ -119,17 +119,17 @@ DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `code` varchar(255) DEFAULT NULL COMMENT '菜单编号',
-  `parent_code` varchar(255) DEFAULT NULL COMMENT '菜单父编号',
-  `parent_codes` varchar(255) DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
+  `pcode` varchar(255) DEFAULT NULL COMMENT '菜单父编号',
+  `pcodes` varchar(255) DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
   `name` varchar(255) DEFAULT NULL COMMENT '菜单名称',
   `icon` varchar(255) DEFAULT NULL COMMENT '菜单图标',
   `url` varchar(255) DEFAULT NULL COMMENT 'url地址',
   `num` int(65) DEFAULT NULL COMMENT '菜单排序号',
   `levels` int(65) DEFAULT NULL COMMENT '菜单层级',
-  `is_menu` int(11) DEFAULT NULL COMMENT '是否是菜单（1：是  0：不是）',
+  `ismenu` int(11) DEFAULT NULL COMMENT '是否是菜单（1：是  0：不是）',
   `tips` varchar(255) DEFAULT NULL COMMENT '备注',
   `status` int(65) DEFAULT NULL COMMENT '菜单状态 :  1:启用   0:不启用',
-  `is_open` int(11) DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
+  `isopen` int(11) DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
@@ -204,7 +204,7 @@ CREATE TABLE `sys_notice` (
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `type` int(11) DEFAULT NULL COMMENT '类型',
   `content` text COMMENT '内容',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `creator` int(11) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='通知表';
@@ -221,12 +221,12 @@ INSERT INTO `sys_notice` VALUES ('8', '你好', null, '你好', '2017-05-10 19:2
 DROP TABLE IF EXISTS `sys_operation_log`;
 CREATE TABLE `sys_operation_log` (
   `id` int(65) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `log_type` varchar(255) DEFAULT NULL COMMENT '日志类型',
-  `log_name` varchar(255) DEFAULT NULL COMMENT '日志名称',
-  `user_id` int(65) DEFAULT NULL COMMENT '用户id',
-  `class_name` varchar(255) DEFAULT NULL COMMENT '类名称',
+  `logtype` varchar(255) DEFAULT NULL COMMENT '日志类型',
+  `logname` varchar(255) DEFAULT NULL COMMENT '日志名称',
+  `userid` int(65) DEFAULT NULL COMMENT '用户id',
+  `classname` varchar(255) DEFAULT NULL COMMENT '类名称',
   `method` text COMMENT '方法名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `succeed` varchar(255) DEFAULT NULL COMMENT '是否成功',
   `message` text COMMENT '备注',
   PRIMARY KEY (`id`)
@@ -242,8 +242,8 @@ CREATE TABLE `sys_operation_log` (
 DROP TABLE IF EXISTS `sys_relation`;
 CREATE TABLE `sys_relation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `menu_id` bigint(11) DEFAULT NULL COMMENT '菜单id',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
+  `menuid` bigint(11) DEFAULT NULL COMMENT '菜单id',
+  `roleid` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3737 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 
@@ -336,9 +336,9 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `num` int(11) DEFAULT NULL COMMENT '序号',
-  `parent_id` int(11) DEFAULT NULL COMMENT '父角色id',
+  `pid` int(11) DEFAULT NULL COMMENT '父角色id',
   `name` varchar(255) DEFAULT NULL COMMENT '角色名称',
-  `dept_id` int(11) DEFAULT NULL COMMENT '部门名称',
+  `deptid` int(11) DEFAULT NULL COMMENT '部门名称',
   `tips` varchar(255) DEFAULT NULL COMMENT '提示',
   `version` int(11) DEFAULT NULL COMMENT '保留字段(暂时没用）',
   PRIMARY KEY (`id`)
@@ -365,10 +365,10 @@ CREATE TABLE `sys_user` (
   `sex` int(11) DEFAULT NULL COMMENT '性别（1：男 2：女）',
   `email` varchar(45) DEFAULT NULL COMMENT '电子邮件',
   `phone` varchar(45) DEFAULT NULL COMMENT '电话',
-  `role_id` varchar(255) DEFAULT NULL COMMENT '角色id',
-  `dept_id` int(11) DEFAULT NULL COMMENT '部门id',
+  `roleid` varchar(255) DEFAULT NULL COMMENT '角色id',
+  `deptid` int(11) DEFAULT NULL COMMENT '部门id',
   `status` int(11) DEFAULT NULL COMMENT '状态(1：启用  2：冻结  3：删除）',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
   `version` int(11) DEFAULT NULL COMMENT '保留字段',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='管理员表';
