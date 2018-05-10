@@ -6,10 +6,10 @@
     <select id="getLoginLogs" resultType="map" parameterType="com.baomidou.mybatisplus.plugins.Page">
         select * from sys_login_log where 1 = 1
         <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
-            and (createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+            and (create_time between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
         </if>
         <if test="logName != null and logName !=''">
-            and logname like CONCAT('%',#{logName},'%')
+            and log_name like CONCAT('%',#{logName},'%')
         </if>
         <choose>
             <when test="orderByField != null and orderByField !=''">
@@ -23,7 +23,7 @@
                 </choose>
             </when>
             <otherwise>
-                order by createTime DESC
+                order by create_time DESC
             </otherwise>
         </choose>
     </select>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.TimerTask;
 
 /**
@@ -37,18 +38,27 @@ public class LogTask {
         logTask.operationLogMapper = this.operationLogMapper;
     }
 
-    public static TimerTask businessLog(final Integer userId, final String businessName, final String clazzName, final String methodName, final String msg) {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                OperationLog operationLog = LogDomain.createOperationLog(
-                        LogTypeEnum.BUSINESS, userId, businessName, clazzName, methodName, msg, LogSucceedEnum.SUCCESS);
-                try {
-                    logTask.operationLogMapper.insert(operationLog);
-                } catch (Exception e) {
-                    log.error("创建业务日志异常!", e);
-                }
+    /**
+     * 创建业务日志
+     */
+    public static TimerTask businessLog(Integer userId, String businessName, String clazzName, String methodName, String msg) {
+        return new businessLogTask(userId, businessName, clazzName, methodName, msg);
+    }
+
+
+    private static class businessLogTask extends TimerTask {
+        private OperationLog operationLog;
+
+        businessLogTask(Integer userId, String businessName, String clazzName, String methodName, String msg) {
+            this.operationLog = new OperationLog(LogTypeEnum.BUSINESS.getMessage(), businessName, userId, clazzName, methodName, new Date(), LogSucceedEnum.SUCCESS.getMessage(), msg);
+        }
+        @Override
+        public void run() {
+            try {
+                logTask.operationLogMapper.insert(operationLog);
+            } catch (Exception e) {
+                log.error("创建业务日志异常!", e);
             }
-        };
+        }
     }
 }

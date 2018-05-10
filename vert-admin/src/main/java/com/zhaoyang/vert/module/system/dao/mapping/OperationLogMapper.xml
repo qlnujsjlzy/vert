@@ -5,13 +5,13 @@
     <select id="getOperationLogs" resultType="map">
         select * from sys_operation_log where 1 = 1
         <if test="beginTime != null and beginTime !='' and endTime != null and endTime != ''">
-            and (createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+            and (create_time between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
         </if>
         <if test="logName != null and logName !=''">
-            and logname like CONCAT('%',#{logName},'%')
+            and log_name like CONCAT('%',#{logName},'%')
         </if>
         <if test="logType != null and logType !=''">
-            and logtype like CONCAT('%',#{logType},'%')
+            and log_type like CONCAT('%',#{logType},'%')
         </if>
         <choose>
             <when test="orderByField != null and orderByField !=''">
@@ -25,7 +25,7 @@
                 </choose>
             </when>
             <otherwise>
-                order by createtime DESC
+                order by create_time DESC
             </otherwise>
         </choose>
     </select>

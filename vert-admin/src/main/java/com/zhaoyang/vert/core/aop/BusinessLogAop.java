@@ -99,7 +99,6 @@ public class BusinessLogAop {
 
         String msg ;
         if (StringUtils.containsAny(businessName, UPDATE)) {
-            //TODO 涉及到修改，对比变化
             Object obj1 = prototypeBeanInstance.getLogSessionHolder().getObject();
             Map<String, String> obj2 = HttpKit.getRequestParameters();
             msg = Contrast.contrastObj(dictClass, key, obj1, obj2);

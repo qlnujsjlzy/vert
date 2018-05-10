@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ import java.util.Date;
  * @date : 2018/5/8
  */
 @TableName("sys_operation_log")
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -69,4 +71,14 @@ public class OperationLog extends Model<OperationLog> {
     }
 
 
+    public OperationLog(String logType, String logName, Integer userId, String className, String method, Date createTime, String succeed, String message) {
+        this.logType = logType;
+        this.logName = logName;
+        this.userId = userId;
+        this.className = className;
+        this.method = method;
+        this.createTime = createTime;
+        this.succeed = succeed;
+        this.message = message;
+    }
 }
