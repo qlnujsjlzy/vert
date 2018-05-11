@@ -1,10 +1,15 @@
 package com.zhaoyang.vert.core.shiro;
 
+import com.zhaoyang.vert.core.common.constant.Const;
 import com.zhaoyang.vert.core.util.ToolUtil;
+import com.zhaoyang.vert.module.system.factory.DaoFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+
+import java.util.List;
 
 
 /**
@@ -23,12 +28,12 @@ public class ShiroKit {
     /**
      * 加盐参数
      */
-    private static final String HASH_ALGORITHM_NAME = "MD5";
+    public static final String HASH_ALGORITHM_NAME = "MD5";
 
     /**
      * 循环次数
      */
-    private static final int HASH_ITERATIONS = 1024;
+    public static final int HASH_ITERATIONS = 1024;
 
 
     /**
@@ -58,7 +63,17 @@ public class ShiroKit {
     public static Subject getSubject() {
         return SecurityUtils.getSubject();
     }
-
+    /**
+     * 验证当前用户是否属于该角色？,使用时与lacksRole 搭配使用
+     *
+     * @param roleName
+     *            角色名
+     * @return 属于该角色：true，否则false
+     */
+    public static boolean hasRole(String roleName) {
+        return getSubject() != null && roleName != null
+                && roleName.length() > 0 && getSubject().hasRole(roleName);
+    }
 
     /**
      * 获取封装的 ShiroUser
@@ -88,5 +103,45 @@ public class ShiroKit {
      */
     private static boolean isUser() {
         return getSubject() != null && getSubject().getPrincipal() != null;
+    }
+
+    /**
+     * 判断当前用户是否是超级管理员
+     */
+    public static boolean isAdmin() {
+        List<Integer> roleList = ShiroKit.getUser().getRoleList();
+        for (Integer integer : roleList) {
+            String singleRoleTip = DaoFactory.instance().getSingleRoleTip(integer);
+            if (singleRoleTip.equals(Const.ADMIN_NAME)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 获取当前用户的部门数据范围的集合
+     */
+    public static List<Integer> getDeptDataScope() {
+        Integer deptId = getUser().getDeptId();
+        List<Integer> subDeptIds = DaoFactory.instance().getSubDeptId(deptId);
+        subDeptIds.add(deptId);
+        return subDeptIds;
+    }
+
+    /**
+     * 已认证通过的用户。不包含已记住的用户，这是与user标签的区别所在。与notAuthenticated搭配使用
+     *
+     * @return 通过身份验证：true，否则false
+     */
+    public static boolean isAuthenticated() {
+        return getSubject() != null && getSubject().isAuthenticated();
+    }
+
+    /**
+     * 从shiro获取session
+     */
+    public static Session getSession() {
+        return getSubject().getSession();
     }
 }

@@ -4,13 +4,13 @@ import com.zhaoyang.vert.core.common.constant.enums.LogSucceedEnum;
 import com.zhaoyang.vert.core.common.constant.enums.LogTypeEnum;
 import com.zhaoyang.vert.module.system.dao.LoginLogMapper;
 import com.zhaoyang.vert.module.system.dao.OperationLogMapper;
+import com.zhaoyang.vert.module.system.model.LoginLog;
 import com.zhaoyang.vert.module.system.model.OperationLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.TimerTask;
 
 /**
@@ -38,6 +38,65 @@ public class LogTask {
         logTask.operationLogMapper = this.operationLogMapper;
     }
 
+
+    public static TimerTask loginLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    LoginLog loginLog = new LoginLog(LogTypeEnum.LOGIN.getMessage(), userId, LogSucceedEnum.SUCCESS.getMessage(), null, ip);
+                    logTask.loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    log.error("创建登录日志异常!", e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask loginLog(final String username, final String msg, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = new LoginLog(
+                        LogTypeEnum.LOGIN_FAIL.getMessage(), null, LogSucceedEnum.SUCCESS.getMessage(), "账号:" + username + "," + msg, ip);
+                try {
+                    logTask.loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    log.error("创建登录失败异常!", e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask exitLog(final Integer userId, final String ip) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                LoginLog loginLog = new LoginLog(LogTypeEnum.EXIT.getMessage(), userId, LogSucceedEnum.SUCCESS.getMessage(),
+                        null, ip);
+                try {
+                    logTask.loginLogMapper.insert(loginLog);
+                } catch (Exception e) {
+                    log.error("创建退出日志异常!", e);
+                }
+            }
+        };
+    }
+
+    public static TimerTask bussinessLog(final Integer userId, final String bussinessName, final String clazzName, final String methodName, final String msg) {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                OperationLog operationLog = new OperationLog(LogTypeEnum.BUSINESS.getMessage(), bussinessName, userId, clazzName, methodName, LogSucceedEnum.SUCCESS.getMessage(), msg);
+                try {
+                    logTask.operationLogMapper.insert(operationLog);
+                } catch (Exception e) {
+                    log.error("创建业务日志异常!", e);
+                }
+            }
+        };
+    }
+
     /**
      * 创建业务日志
      */
@@ -50,8 +109,9 @@ public class LogTask {
         private OperationLog operationLog;
 
         businessLogTask(Integer userId, String businessName, String clazzName, String methodName, String msg) {
-            this.operationLog = new OperationLog(LogTypeEnum.BUSINESS.getMessage(), businessName, userId, clazzName, methodName, new Date(), LogSucceedEnum.SUCCESS.getMessage(), msg);
+            this.operationLog = new OperationLog(LogTypeEnum.BUSINESS.getMessage(), businessName, userId, clazzName, methodName, LogSucceedEnum.SUCCESS.getMessage(), msg);
         }
+
         @Override
         public void run() {
             try {

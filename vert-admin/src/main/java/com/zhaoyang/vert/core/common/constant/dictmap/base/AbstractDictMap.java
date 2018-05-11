@@ -17,9 +17,9 @@ public abstract class AbstractDictMap {
 
     public AbstractDictMap() {
         //首项
-        putDict("id", "主键id");
+        put("id", "主键id");
         init();
-        initNeedWrapper();
+        initBeWrapped();
     }
 
     /**
@@ -30,22 +30,22 @@ public abstract class AbstractDictMap {
     /**
      * 初始化 需要被包装的字段（如：性别 1：男；2：女）需要被包装成汉字展示
      */
-    public abstract void initNeedWrapper();
+    protected abstract void initBeWrapped();
 
-    public String getDict(String key) {
+    public String get(String key) {
         return dictMap.get(key);
     }
 
-    public void putDict(String key, String value) {
+    public void put(String key, String value) {
         dictMap.put(key, value);
     }
 
 
-    public String getFieldWrapperDictName(String key) {
+    public String getFieldWrapperMethodName(String key) {
         return fieldWrapperDictMap.get(key);
     }
 
-    public void putFieldWrapperDict(String key, String value) {
+    public void putFieldWrapperMethodName(String key, String value) {
         fieldWrapperDictMap.put(key, value);
     }
 

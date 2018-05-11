@@ -1,13 +1,30 @@
 ###项目启动端口
 server:
   port: 8088
+###################  vert 配置  ###################
+vert:
+  swagger-open: true #是否开启swagger (true/false)
+  kaptcha-open: false #是否开启登录时验证码 (true/false)
+  #file-upload-path: d:/tmp  #文件上传目录(不配置的话为java.io.tmpdir目录)
+  spring-session-open: false #是否开启spring session,如果是多机环境需要开启(true/false)
+  session-invalidate-time: 1800 #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
+  session-validation-interval: 900 #多久检测一次失效的session(只在单机环境下生效) 单位：秒
 
 ###################  spring配置  ###################
 spring:
   mvc:
     static-path-pattern: /static/**
     view:
-      prefix: /WEB-INF/view
+      prefix: /view
+###################  beetl配置  ###################
+beetl:
+  delimiter-statement-start: \@   #开始结束标签(yaml不允许@开头)
+  delimiter-statement-end: null
+  resource-tag-root: common/tags   #自定义标签文件Root目录和后缀
+  resource-tag-suffix: tag
+  resource-auto-check: true #是否检测文件变化,开发用true合适，但线上要改为false
+
+
 ##########################################################
 ###################  开发环境的profile  ###################
 ##########################################################

@@ -23,5 +23,7 @@ public class DataScope {
      */
     private List<Integer> deptIds;
 
-
+    public DataScope(List<Integer> deptIds) {
+        this.deptIds = deptIds;
+    }
 }

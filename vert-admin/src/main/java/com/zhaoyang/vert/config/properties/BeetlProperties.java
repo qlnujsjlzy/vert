@@ -23,9 +23,6 @@ public class BeetlProperties {
 
     static final String BEETL_PROPERTIES_PREFIX = "beetl";
 
-    @Value("${spring.mvc.view.prefix}")
-    private String prefix;
-
     private String delimiterStatementStart;
 
     private String delimiterStatementEnd;

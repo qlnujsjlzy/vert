@@ -25,7 +25,7 @@ public class ContrastUtil {
     /**
      * 记录每个修改字段的分隔符
      */
-    private static final String SEPARATOR = ";;;";
+    public static final String SEPARATOR = ";;;";
 
 
     public static String contrastObj(Class dictClass, String key, Object pojo1, Map<String, String> pojo2) throws IllegalAccessException, InstantiationException {
@@ -55,8 +55,8 @@ public class ContrastUtil {
                     if (i != 1) {
                         sb.append(SEPARATOR);
                     }
-                    String fieldName = dictMap.getDict(field.getName());
-                    String fieldWrapperDictName = dictMap.getFieldWrapperDictName(field.getName());
+                    String fieldName = dictMap.get(field.getName());
+                    String fieldWrapperDictName = dictMap.getFieldWrapperMethodName(field.getName());
                     //TODO 字段比较
                     if (fieldWrapperDictName != null) {
 
@@ -93,13 +93,13 @@ public class ContrastUtil {
     }
 
     private static String appendLog(StringBuilder sb, String item, AbstractDictMap dictMap, Map<String, String> requests) {
-        String fieldWrapperDictName = dictMap.getFieldWrapperDictName(item);
+        String fieldWrapperDictName = dictMap.getFieldWrapperMethodName(item);
         String value = requests.get(item);
         if (StringUtils.isNotBlank(fieldWrapperDictName)) {
             //TODO 字典表字段,更新 value
-            sb.append(dictMap.getDict(item)).append("=").append(value).append(",");
+            sb.append(dictMap.get(item)).append("=").append(value).append(",");
         } else {
-            sb.append(dictMap.getDict(item)).append("=").append(value).append(",");
+            sb.append(dictMap.get(item)).append("=").append(value).append(",");
         }
         return sb.toString();
     }

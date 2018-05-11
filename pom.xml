@@ -47,6 +47,7 @@
         <flowable.version>6.2.0</flowable.version>
         <hutool.version>4.0.0</hutool.version>
         <guava.version>18.0</guava.version>
+        <ehcache.core.version>2.6.11</ehcache.core.version>
     </properties>
     
     <dependencyManagement>
@@ -179,7 +180,11 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-        
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>${ehcache.core.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

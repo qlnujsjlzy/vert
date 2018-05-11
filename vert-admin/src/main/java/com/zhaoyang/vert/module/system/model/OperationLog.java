@@ -71,13 +71,13 @@ public class OperationLog extends Model<OperationLog> {
     }
 
 
-    public OperationLog(String logType, String logName, Integer userId, String className, String method, Date createTime, String succeed, String message) {
+    public OperationLog(String logType, String logName, Integer userId, String className, String method, String succeed, String message) {
         this.logType = logType;
         this.logName = logName;
         this.userId = userId;
         this.className = className;
         this.method = method;
-        this.createTime = createTime;
+        this.createTime = new Date();
         this.succeed = succeed;
         this.message = message;
     }

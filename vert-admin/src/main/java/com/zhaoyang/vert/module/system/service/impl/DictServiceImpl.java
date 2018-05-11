@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.zhaoyang.vert.core.common.constant.enums.BizExceptionEnum;
-import com.zhaoyang.vert.core.common.exception.VertException;
+import com.zhaoyang.vert.core.exception.VertException;
 import com.zhaoyang.vert.core.support.StrKit;
 import com.zhaoyang.vert.module.system.dao.DictMapper;
 import com.zhaoyang.vert.module.system.model.Dict;

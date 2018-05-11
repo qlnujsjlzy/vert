@@ -44,7 +44,7 @@ public class MenuNode implements Comparable {
     /**
      * 按钮级别
      */
-    private Integer isMenu;
+    private Integer ismenu;
 
     /**
      * 按钮的排序
@@ -87,7 +87,7 @@ public class MenuNode implements Comparable {
     public static List<MenuNode> clearBtn(List<MenuNode> nodes) {
         ArrayList<MenuNode> noBtns = new ArrayList<MenuNode>();
         for (MenuNode node : nodes) {
-            if (node.getIsMenu() == IsMenuEnum.YES.getCode()) {
+            if (node.getIsmenu() == IsMenuEnum.YES.getCode()) {
                 noBtns.add(node);
             }
         }

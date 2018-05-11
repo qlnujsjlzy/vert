@@ -27,7 +27,8 @@ public class BeetlConfig {
     @Bean(initMethod = "init")
     public BeetlExtConfig beetlConfiguration() {
         BeetlExtConfig beetlConfiguration = new BeetlExtConfig();
-        beetlConfiguration.setResourceLoader(new ClasspathResourceLoader(BeetlConfig.class.getClassLoader(), beetlProperties.getPrefix()));
+        //TODO 后续处理 prefix
+        beetlConfiguration.setResourceLoader(new ClasspathResourceLoader(BeetlConfig.class.getClassLoader(), "/view"));
         beetlConfiguration.setConfigProperties(beetlProperties.getProperties());
         return beetlConfiguration;
     }

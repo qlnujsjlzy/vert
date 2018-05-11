@@ -26,30 +26,34 @@ public class Role extends Model<Role> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键id
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**
-     * 标题
+     * 序号
      */
-    private String title;
+    private Integer num;
     /**
-     * 类型
+     * 父角色id
      */
-    private Integer type;
+    private Integer pId;
     /**
-     * 内容
+     * 角色名称
      */
-    private String content;
+    private String name;
     /**
-     * 创建时间
+     * 部门名称
      */
-    private Date createTime;
+    private Integer deptId;
     /**
-     * 创建人
+     * 提示
      */
-    private Integer creator;
+    private String tips;
+    /**
+     * 保留字段(暂时没用）
+     */
+    private Integer version;
 
 
     @Override

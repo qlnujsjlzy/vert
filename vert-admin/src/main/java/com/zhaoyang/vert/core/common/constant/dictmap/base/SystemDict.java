@@ -15,7 +15,7 @@ public class SystemDict extends AbstractDictMap {
     }
 
     @Override
-    public void initNeedWrapper() {
+    public void initBeWrapped() {
 
     }
 }

@@ -62,4 +62,14 @@ public class LoginLog extends Model<LoginLog> {
     protected Serializable pkVal() {
         return this.id;
     }
+
+
+    public LoginLog(String logName, Integer userId, String succeed, String message, String ip) {
+        this.logName = logName;
+        this.userId = userId;
+        this.createTime = new Date();
+        this.succeed = succeed;
+        this.message = message;
+        this.ip = ip;
+    }
 }

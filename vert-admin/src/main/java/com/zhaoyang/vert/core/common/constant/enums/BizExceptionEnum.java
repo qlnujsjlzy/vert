@@ -1,6 +1,6 @@
 package com.zhaoyang.vert.core.common.constant.enums;
 
-import com.zhaoyang.vert.core.base.InterfaceEnum;
+import com.zhaoyang.vert.core.enums.InterfaceEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
