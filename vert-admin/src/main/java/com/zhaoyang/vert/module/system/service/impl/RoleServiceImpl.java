@@ -2,6 +2,7 @@ package com.zhaoyang.vert.module.system.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.zhaoyang.vert.core.node.ZTreeNode;
+import com.zhaoyang.vert.core.util.ConvertUtil;
 import com.zhaoyang.vert.module.system.dao.RelationMapper;
 import com.zhaoyang.vert.module.system.dao.RoleMapper;
 import com.zhaoyang.vert.module.system.model.Relation;
@@ -36,7 +37,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         this.roleMapper.deleteRolesById(roleId);
 
         // 添加新的权限
-        for (Long id : Convert.toLongArray(true, Convert.toStrArray(",", ids))) {
+        for (Long id : ConvertUtil.toLongArray(true, ConvertUtil.toStrArray(",", ids))) {
             Relation relation = new Relation();
             relation.setRoleId(roleId);
             relation.setMenuId(id);

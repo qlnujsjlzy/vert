@@ -8,7 +8,7 @@ import com.zhaoyang.vert.core.log.task.LogTask;
 import com.zhaoyang.vert.core.shiro.ShiroKit;
 import com.zhaoyang.vert.core.shiro.ShiroUser;
 import com.zhaoyang.vert.core.support.HttpKit;
-import com.zhaoyang.vert.core.util.Contrast;
+import com.zhaoyang.vert.core.util.ContrastUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -101,11 +101,11 @@ public class BusinessLogAop {
         if (StringUtils.containsAny(businessName, UPDATE)) {
             Object obj1 = prototypeBeanInstance.getLogSessionHolder().getObject();
             Map<String, String> obj2 = HttpKit.getRequestParameters();
-            msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
+            msg = ContrastUtil.contrastObj(dictClass, key, obj1, obj2);
         } else {
             Map<String, String> parameters = HttpKit.getRequestParameters();
             AbstractDictMap dictMap = dictClass.newInstance();
-            msg = Contrast.parseMultipleKey(dictMap, key, parameters);
+            msg = ContrastUtil.parseMultipleKey(dictMap, key, parameters);
         }
 
         LogManager.instance().executeLog(LogTask.businessLog(user.getId(), businessName, className, methodName, msg));

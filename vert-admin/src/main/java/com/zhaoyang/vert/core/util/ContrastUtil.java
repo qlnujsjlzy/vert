@@ -18,7 +18,7 @@ import java.util.Map;
  * @date : 2018/5/6
  */
 @Slf4j
-public class Contrast {
+public class ContrastUtil {
 
     private static String COMMA_SEPARATOR = ",";
 

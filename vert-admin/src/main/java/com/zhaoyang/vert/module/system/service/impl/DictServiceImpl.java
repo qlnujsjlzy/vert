@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.zhaoyang.vert.core.common.constant.enums.BizExceptionEnum;
 import com.zhaoyang.vert.core.common.exception.VertException;
+import com.zhaoyang.vert.core.support.StrKit;
 import com.zhaoyang.vert.module.system.dao.DictMapper;
 import com.zhaoyang.vert.module.system.model.Dict;
 import com.zhaoyang.vert.module.system.service.DictService;
@@ -35,7 +36,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         }
 
         //解析dictValues
-        List<Map<String, String>> items = parseKeyValue(dictValues);
+        List<Map<String, String>> items = StrKit.parseKeyValue(dictValues);
 
         //添加字典
         Dict dict = new Dict();
@@ -46,8 +47,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
         //添加字典条目
         for (Map<String, String> item : items) {
-            String num = item.get(MUTI_STR_KEY);
-            String name = item.get(MUTI_STR_VALUE);
+            String num = item.get(StrKit.STR_KEY);
+            String name = item.get(StrKit.STR_VALUE);
             Dict itemDict = new Dict();
             itemDict.setPId(dict.getId());
             itemDict.setName(name);
@@ -72,7 +73,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Override
     public void delteDict(Integer dictId) {
         //删除这个字典的子词典
-        Wrapper<Dict> dictEntityWrapper = new EntityWrapper<>();
+        Wrapper<Dict> dictEntityWrapper = new EntityWrapper<Dict>();
         dictEntityWrapper = dictEntityWrapper.eq("pid", dictId);
         dictMapper.delete(dictEntityWrapper);
 
